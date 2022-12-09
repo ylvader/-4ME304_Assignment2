@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   // Variables to connect with Spotify
   // const SPOTIFY_REDIRECT_URI="http://localhost:3000"
-  const SPOTIFY_REDIRECT_URI="https://ylvader.github.io/-4ME304_Assignment2"
+  const SPOTIFY_REDIRECT_URI= "https://ylvader.github.io/-4ME304_Assignment2/"
   const SPOTIFY_CLIENT_ID="aa154d5d0093466c84e7a422863e09a4"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
