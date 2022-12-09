@@ -113,6 +113,11 @@ html, body {
     margin-top: 3%;
 }
 
+#needtologin {
+    font-weight: bold;
+    margin-top: 20%;
+}
+
 /* Buttons */
 #signinbutton {
     display: block;

@@ -9,14 +9,16 @@ import { DiscussionEmbed } from 'disqus-react';
 // The Spotify-logo must be used when using their API
 import spotifyLogo from './images/Spotify_Logo_RGB_Green.png'
 
-// @ TODO: Test, remove TODOs, clear code
+// Design from react-bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   // Variables to connect with Spotify
-  const SPOTIFY_REDIRECT_URI=process.env.SPOTIFY_REDIRECT_URI
-  const SPOTIFY_CLIENT_ID=process.env.SPOTIFY_CLIENT_ID
-  const AUTH_ENDPOINT = process.env.AUTH_ENDPOINT
-  const RESPONSE_TYPE = process.env.RESPONSE_TYPE
+  // const SPOTIFY_REDIRECT_URI="http://localhost:3000"
+  const SPOTIFY_REDIRECT_URI="https://ylvader.github.io/-4ME304_Assignment2"
+  const SPOTIFY_CLIENT_ID="aa154d5d0093466c84e7a422863e09a4"
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  const RESPONSE_TYPE = "token"
 
   // State variables
   // Spotify
@@ -29,7 +31,7 @@ function App() {
 
   // Wikipedia
   const [wikiResults, setWikiResults] = useState([]);
-  //const [searchInfo, setSearchInfo] = useState({});
+  // const [searchInfo, setSearchInfo] = useState({});
 
   // Get access token from Spotify-login using useEffect
   // Inspiration from: https://www.youtube.com/watch?v=wBq3HCvYfUg
@@ -66,14 +68,6 @@ function App() {
 
     // Avoid reloading of page because React does that every time you submit a form
     e.preventDefault()
-
-    // If a selected artist is known, clear. Do you want this?
-    // @TODO: TEST with wiki
-    /*
-    if(selectedArtist) {
-      setSelectedArtist("");
-    }
-    */
 
     // Get the data from Spotify
     const {data} = await axios.get("https://api.spotify.com/v1/search", {
@@ -117,12 +111,6 @@ function App() {
     handleWikiInfo(selectedArtist);
   }, [selectedArtist])
 
-  // Test function to not doing to many calls to the Spotify API
-  // Will be removed later 
-  const test = () => { 
-    setSelectedArtist("Metallica");
-  }
-
   // Handle information from Wikipedia
   // Inspiration from: https://www.youtube.com/watch?v=Gyg5R8Sfo1U
   const handleWikiInfo = async (selected_Artist) => { 
@@ -158,10 +146,6 @@ function App() {
           <h1 id="Apptitle">Find artists, information, and discuss</h1>
         </div>
 
-        {/* Test button to test the APIs
-            @TODO: Should be removed later*/}
-        <button onClick={() => test()} style={{marginTop: "200px"}}>Test</button>
-
         {/* Sign in/Sign out section
           If we dont have a token, render login button, otherwise log out*/}
 
@@ -189,14 +173,18 @@ function App() {
       : <form id="searchField">
           <input type="text"/>
           <button className="searchButton">Search</button>
-          <p className="smallTitle">Sign in with Spotify to search for artists</p>
+          <p id="needtologin">Sign in with Spotify to search for artists</p>
         </form> 
       }
       </div>
 
-      {/* Render artists/songs*/}
+      {/* Render artists/songs if the user is signed in*/}
       <div id="artistSongsContainer">
-        {renderArtists()}
+      {token ?
+          renderArtists()
+   
+      : ''
+      }
       </div>
 
       {/* Information about the artist from the Wikipedia API
@@ -204,16 +192,16 @@ function App() {
         has selected an artist.*/}
       <div id="infoContainer">
         {!token ? 
-          <p><p className="smallTitle">Information about the artist</p>
-              Sign in with Spotify, search for artists to 
-              get information about the artist.</p>
+          <div><p className="smallTitle">Information about the artist</p>
+              <p>Sign in with Spotify, search for artists to 
+              get information about the artist.</p></div>
         : !selectedArtist ?
-          <p><p className="smallTitle">Information about the artist</p>
-            Search for an artist. Then select it to show information about 
-            the artist.</p>
-            : <p><p className="smallTitle">Information regarding {selectedArtist}</p>
-
+          <div><p className="smallTitle">Information about the artist</p>
+            <p>Search for an artist. Then select it to show information about 
+            the artist.</p></div>
+            : 
             <div className="results">
+              <p className="smallTitle">Information regarding {selectedArtist}</p>
               {wikiResults.map((result, i) => {
                 const url = `https://en.wikipedia.org/?curid=${result.pageid}`
                 return (
@@ -226,7 +214,7 @@ function App() {
                 )
               })}
             </div>
-              </p>
+              
           }
       </div>
 
