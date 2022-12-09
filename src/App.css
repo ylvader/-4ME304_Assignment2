@@ -1,0 +1,239 @@
+/* Containers */
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #d2d2d2;
+}
+  
+.App {
+    text-align: center;
+    background-color: #d2d2d2;
+    width: 100%;
+    height: 100%;
+}
+
+.App-header {
+    background-color: #d2d2d2;
+    min-height: 100vh;
+}
+
+#titleContainer {
+    position: absolute;
+    left: 25%;
+    text-align: center;
+    justify-content: center;
+    width: 50%;
+}
+
+#artistContainer {
+    background-color: #ffffff;
+    border-radius: 2em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#artistSongsContainer {
+    background-color: #d2d2d2;
+    position: relative;
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+    top: 200px;
+    display: block;
+}
+
+#authContainer {
+    background-color: #ffffff;
+    border-radius: 2em;
+    align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    min-height: 27vh;
+    width: 20%;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    left: 1%;
+    top: 1%;
+}
+
+#searchContainer {
+    top: 15%;
+    left: 25%;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    width: 50%;
+}
+
+#infoContainer {
+    background-color: #ffffff;
+    border-radius: 2em;
+    align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    top: 35%;
+    left: 1%;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    width: 24%;
+}
+
+#discussContainer {
+    background-color: #ffffff;
+    border-radius: 2em;
+    align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    top: 35%;
+    left: 75%;
+    position: absolute;
+    width: 24%;
+    padding: 8px 0;
+}
+
+/* Text */
+#Apptitle {
+    font-family: 'Times New Roman', Times, serif;
+    color: #104e5e;
+    text-shadow: 2px 1px 6px rgba(255, 255, 255, 0.43);
+}
+
+.p {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.results p .searchmatch {
+    font-weight: 700;
+    color: #770e58
+}
+
+.smallTitle {
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+/* Buttons */
+#signinbutton {
+    display: block;
+    background-color: #2d2d2d;
+    border-radius: 2em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    margin-top: 2%;
+    padding: 15px 25px;
+    width: 70%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    text-decoration: none;
+}
+
+#signinbutton:hover {
+    background-color: rgb(110, 110, 110);
+    color: white;
+}
+
+#signoutbutton {
+    display: block;
+    background-color: #2d2d2d;
+    border-radius: 2em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    margin-top: 2%;
+    border: none;
+    padding: 15px 25px;
+    width: 70%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+#signoutbutton:hover {
+    background-color: rgb(110, 110, 110);
+    color: white;
+}
+
+#selectButton {
+    background-color: #986a6a;
+    border-radius: 2em;
+    border: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    color: white;
+    width: 20%;
+    margin-bottom: 10px;
+}
+
+#selectButton:hover {
+    background-color: #765353;
+    color: white;
+}
+
+#readmore {
+    display: block;
+    background-color: #8b3131;
+    border-radius: 2em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    border: none;
+    text-decoration: none;
+    margin-bottom: 15px;
+    padding: 15px 25px;
+    width: 85%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+#readmore:hover {
+    background-color: #ba4545;
+    color: white;
+}
+
+/* Search field */
+#searchField {
+    width: 100%;
+}
+
+#searchField input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+.searchButton {
+    width: 100%;
+    text-align: center;
+    background-color: #104e5e;
+    color: white;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+    width: 5em;
+    position:absolute;
+    left:101%;
+    top: 2%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  
+.searchButton:hover {
+    background-color: #197086;
+  }
+
+/* Other */
+#spotifylogo {
+    text-align: center;
+    width: 100%; /* 70px */
+    margin-top: 1em;
+}
+
+#artistImage {
+    width: 20%; /* 70px */
+    margin-top: 1em;
+    left: 10px;
+}
