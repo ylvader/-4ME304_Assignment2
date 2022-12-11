@@ -118,6 +118,10 @@ html, body {
     margin-top: 20%;
 }
 
+#supporttext {
+    margin-top: 10px;
+}
+
 /* Buttons */
 #signinbutton {
     display: block;
