@@ -1,3 +1,8 @@
+// New in this program for the submission:
+// - The app could not be tested because the access token for Spotify was not refreshed,
+// which is not fixed.
+// - Backend implemented for security when dealing with "client secrets"
+
 // Imports
 import './App.css';
 import {useEffect, useState} from 'react'
@@ -14,15 +19,45 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   // Spotify variables to set access token (from central account) and search results
-  const token = "BQBsirDrpBzv7h2tyFBFWx5hw2VZJU9azk_nwrib26e77MjbeosifjzrW9ljjS2Y4BxBSKRpRQyzknl3NGy9ED23NNihDq0smwKKApdhAxSAj0oOy1CInx6_aH2v5qOBCveOXlagBi7dfK7OER5aoog28kEcfU8kE14iDNfHqfbw8sHQDceE2-x7vwjceixan5Y"
+  const [token, setToken] = useState("") // Set access token, which refreshes after a while 
+  const [SPOTIFY_CLIENT_ID, setSPOTIFY_CLIENT_ID] = useState(null)
+  const [SPOTIFY_CLIENT_SECRET, setSPOTIFY_CLIENT_SECRET] = useState(null)
+
   const [searchKey, setSearchKey] = useState("")
   const [artists, setArtists] = useState([])
+
+  // Fetch Spotify-client details from the backend server
+  useEffect(() => {
+    fetch("/api").then(
+      response => response.json()
+    ).then(
+      data => {
+        setSPOTIFY_CLIENT_ID(data.clientDetails[0])
+        setSPOTIFY_CLIENT_SECRET(data.clientDetails[1])
+      }
+    )
+  }, [])
 
   // To get information about a selected artist
   const [selectedArtist, setSelectedArtist] = useState("")
 
   // Wikipedia results based on a selected artist
   const [wikiResults, setWikiResults] = useState([]);
+
+  // Set the access token from Spotify API
+  useEffect(() => {
+      var authParams = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'grant_type=client_credentials&client_id=' + SPOTIFY_CLIENT_ID + '&client_secret=' + SPOTIFY_CLIENT_SECRET
+    }
+    fetch('https://accounts.spotify.com/api/token', authParams)
+      .then(result => result.json())
+      .then(data => setToken(data.access_token))
+    
+  }, [])
 
   // Search for artists and also pass the event
   // Does http requests - async because we are waiting for axios
@@ -44,6 +79,7 @@ function App() {
 
     // Set artists from the data
     setArtists(data.artists.items)
+    console.log(artists)
   }
 
   // Render the artists (from search result) in a list by using map()
@@ -67,11 +103,6 @@ function App() {
     ))    
   }
 
-  // Wait for the data (selectedArtist) to be updated before showing information from Wikipedia
-  useEffect(() => {
-    handleWikiInfo(selectedArtist);
-  }, [selectedArtist])
-
   // Handle information from Wikipedia
   // Inspiration from: https://www.youtube.com/watch?v=Gyg5R8Sfo1U
   const handleWikiInfo = async (selected_Artist) => { 
@@ -93,6 +124,13 @@ function App() {
     // Set the result from the json object
     setWikiResults(jsons.query.search);
   }
+
+  // Wait for the data (selectedArtist) to be updated before showing information from Wikipedia
+  useEffect(() => {
+    handleWikiInfo(selectedArtist)
+  }, [selectedArtist]) // Only re-run the effect if selectedArtist changes
+
+  //handle wikiinfo
 
   // HTML rendering
   return (
@@ -131,6 +169,7 @@ function App() {
             : 
             <div className="results">
               <p className="smallTitle">Information regarding {selectedArtist}</p>
+
               {wikiResults.map((result, i) => {
                 const url = `https://en.wikipedia.org/?curid=${result.pageid}`
                 return (
@@ -142,6 +181,7 @@ function App() {
                   </div>
                 )
               })}
+
             </div>
           }
       </div>
